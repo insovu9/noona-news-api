@@ -1,23 +1,57 @@
 const API_KEY = `e9ccff088ea44691aa102045cfab76e3`;
 let newsList = [];
+const menus = document.querySelectorAll(".menus button")
+menus.forEach(menu=>menu.addEventListener("click",(event)=>getNewsByCategory(event)))
 
 const openNav = () => {
-    document.getElementById("mySidenav").style.width = "250px";
-  };
-  
-  const closeNav = () => {
-    document.getElementById("mySidenav").style.width = "0";
-  };
+  document.getElementById("mySidenav").style.width = "250px";
+};
+
+const closeNav = () => {
+  document.getElementById("mySidenav").style.width = "0";
+};
+
+const toggleSearch = () => {
+  const searchContainer = document.getElementById("searchContainer");
+  if (searchContainer.style.display === "none") {
+    searchContainer.style.display = "block";
+  } else {
+    searchContainer.style.display = "none";
+  }
+};
 
 const getLatestNews = async () => {
   const url = new URL(`https://noona-news-api.netlify.app/top-headlines`);
-  // const url = new URL (`https://newsapi.org/v2/everything?q=Apple&from=2024-02-21&sortBy=popularity&apiKey=${API_KEY}`);
   const response = await fetch(url);
   const data = await response.json();
   newsList = data.articles;
   render();
-  console.log("dddd", newsList);
 };
+
+const getNewsByCategory=async (event)=>{
+  const category = event.target.textContent.toLowerCase()
+  console.log("category",category)
+  const url = new URL(`https://noona-news-api.netlify.app/top-headlines?category=${category}`)
+  const response = await fetch(url);
+  const data = await response.json();
+  console.log ("ddd",data)
+  newsList = data.articles;
+  render();
+}
+
+const search = async() => {
+  const keyword = document.getElementById("search-input").value;
+  console.log("keyword", keyword);
+  const url = new URL(`https://noona-news-api.netlify.app/top-headlines?q=${keyword}`)
+  const response = await fetch(url)
+  const data = await response.json()
+  console.log("keyword data",data)
+  newsList=data.articles
+  render()
+};
+
+document.getElementById("search-button").addEventListener("click", search);
+
 
 const render = () => {
   if (!newsList.length) {
@@ -26,8 +60,7 @@ const render = () => {
   }
 
   const newsHTML = newsList.map((news) => {
-    const imageUrl = news.urlToImage ;
-    
+    const imageUrl = news.urlToImage;
     const title = news.title || 'No title available';
     const description = news.description || '내용없음';
     const sourceName = news.source ? news.source.name : 'no source';

@@ -8,33 +8,41 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
+    
     .icon-button {
       cursor: pointer;
     }
+    .search-container {
+      display: none;
+      position: absolute;
+      top: 30px;
+      left: 125px;
+    }
+
   </style>
 </head>
 <body>
   <div class="side-menu" id="mySidenav">
     <button class="closebtn" onclick="closeNav()">&times;</button>
     <div class="side-menu-list" id="menu-list">
-      <button>Sport</button>
-      <button>Tech</button>
-      <button>World</button>
-      <button>Finance</button>
-      <button>Politics</button>
       <button>Business</button>
-      <button>Economics</button>
       <button>Entertainment</button>
-      <button>Beauty</button>
-      <button>Travel</button>
-      <button>Music</button>
-      <button>Food</button>
+      <button>General</button>
+      <button>Health</button>
       <button>Science</button>
-      <button>Gaming</button>
-      <button>Energy</button>
+      <button>Sports</button>
+      <button>Technology</button>
     </div>
   </div>
   <i class="fas fa-bars hide icon-button" onclick="openNav()"></i>
+
+  <i class="fas fa-search icon-button" id="searchIcon" onclick="toggleSearch()"></i>
+
+<div class="search-container" id="searchContainer">
+  <input id="search-input" type="text" placeholder="Search...">
+  <button id="search-button">Search</button>
+</div>
+
   <section class="container">
       <section>
         <div class="head-line">
@@ -45,21 +53,13 @@
           </svg>
         </div>
         <div class="menus">
-          <button>Sport</button>
-          <button>Tech</button>
-          <button>World</button>
-          <button>Finance</button>
-          <button>Politics</button>
           <button>Business</button>
-          <button>Economics</button>
           <button>Entertainment</button>
-          <button>Beauty</button>
-          <button>Travel</button>
-          <button>Music</button>
-          <button>Food</button>
+          <button>General</button>
+          <button>Health</button>
           <button>Science</button>
-          <button>Gaming</button>
-          <button>Energy</button>
+          <button>Sports</button>
+          <button>Technology</button>
         </div>
       </section>
       <section id="news-board">
