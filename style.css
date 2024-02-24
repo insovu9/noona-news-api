@@ -79,6 +79,15 @@
     }
   }
   
+  @media (max-width: 767px) {
+    .menus {
+      display: none; /* 메뉴 숨김 */
+    }
+    .search-container {
+      top: 60px; /* 검색 창 위치 조정 */
+    }
+  }
+  
   @media (max-width: 576px) {
     .icon-button {
       font-size: 18px; 
