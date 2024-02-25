@@ -54,11 +54,10 @@ const errorRender = (errorMessage) => {
   </div>`;
   document.getElementById("news-board").innerHTML = errorHTML;
 };
-
 const paginationRender = () => {
   const totalPages = Math.ceil(totalResults / pageSize);
   const pageGroup = Math.ceil(page / groupSize);
-  const lastPage = pageGroup * groupSize;
+  let lastPage = pageGroup * groupSize;
   if (lastPage > totalPages) {
     lastPage = totalPages;
   }
@@ -77,17 +76,7 @@ const paginationRender = () => {
     `;
   }
   
-  const maxVisiblePages = 5;
-  const halfMaxVisiblePages = Math.floor(maxVisiblePages / 2);
-  let firstVisiblePage = Math.max(1, page - halfMaxVisiblePages);
-  let lastVisiblePage = Math.min(totalPages, firstVisiblePage + maxVisiblePages - 1);
-  
-  if (totalPages <= maxVisiblePages) {
-    firstVisiblePage = 1;
-    lastVisiblePage = totalPages;
-  }
-  
-  for (let i = firstVisiblePage; i <= lastVisiblePage; i++) {
+  for (let i = firstPage; i <= lastPage; i++) {
     paginationHTML += `
       <li class="page-item ${i === page ? 'active' : ''}" onclick="moveToPage(${i})">
         <a class="page-link">${i}</a>
@@ -107,12 +96,7 @@ const paginationRender = () => {
   }
   
   document.querySelector(".pagination").innerHTML = paginationHTML;
-  
-
-
-
 };
-
 
 
 const getLatestNews = async () => {
