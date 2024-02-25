@@ -64,27 +64,53 @@ const paginationRender = () => {
   }
   const firstPage = lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1);
 
-  let paginationHTML = `
-    <li class="page-item ${page === 1 ? 'disabled' : ''}">
-      <a class="page-link" href="#" onclick="moveToPage(${page - 1})">Previous</a>
-    </li>
-  `;
+  let paginationHTML = '';
 
-  for (let i = firstPage; i <= lastPage; i++) {
+  if (page !== 1) {
+    paginationHTML += `
+      <li class="page-item">
+        <a class="page-link" href="#" onclick="moveToPage(1)">First</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#" onclick="moveToPage(${page - 1})">Previous</a>
+      </li>
+    `;
+  }
+  
+  const maxVisiblePages = 5;
+  const halfMaxVisiblePages = Math.floor(maxVisiblePages / 2);
+  let firstVisiblePage = Math.max(1, page - halfMaxVisiblePages);
+  let lastVisiblePage = Math.min(totalPages, firstVisiblePage + maxVisiblePages - 1);
+  
+  if (totalPages <= maxVisiblePages) {
+    firstVisiblePage = 1;
+    lastVisiblePage = totalPages;
+  }
+  
+  for (let i = firstVisiblePage; i <= lastVisiblePage; i++) {
     paginationHTML += `
       <li class="page-item ${i === page ? 'active' : ''}" onclick="moveToPage(${i})">
         <a class="page-link">${i}</a>
       </li>
     `;
   }
-
-  paginationHTML += `
-    <li class="page-item ${page === totalPages ? 'disabled' : ''}">
-      <a class="page-link" href="#" onclick="moveToPage(${page + 1})">Next</a>
-    </li>
-  `;
-
+  
+  if (page !== totalPages) {
+    paginationHTML += `
+      <li class="page-item">
+        <a class="page-link" href="#" onclick="moveToPage(${page + 1})">Next</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#" onclick="moveToPage(${totalPages})">Last</a>
+      </li>
+    `;
+  }
+  
   document.querySelector(".pagination").innerHTML = paginationHTML;
+  
+
+
+
 };
 
 
